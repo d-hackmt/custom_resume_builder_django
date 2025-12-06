@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Me</title>
+    <link rel="stylesheet" href="{% static 'css/about.css' %}" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="home-button">
+            <a href="{% url 'view_resume' 'template2' %}">
+                <button>Home</button>
+            </a>
+            <div class="left-side">
+                <div class="profileText">
+                    <div class="imgbx">
+                        <img
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWoF5-YOoXgjUPKEdFlBFDTGCLfPMpcr9z2w&s" />
+                    </div>
+
+                    <h2>
+                        <!-- Drishti Jadhwani -->
+                        {{ portfolioData.name }}
+                        <br />
+                        <span> {{ portfolioData.expert|join:", " }}</span>
+                    </h2>
+                </div>
+                <div class="contactInfo">
+                    <h3 class="title">Contact Info</h3>
+                    <ul>
+                        <li>
+                            <span class="icon"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                            <span class="text"> {{ portfolioData.contact }}</span>
+                        </li>
+
+                        <li>
+                            <span class="icon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                            <span class="text"> {{ portfolioData.email }}</span>
+                        </li>
+
+                        {% if portfolioData.website %}
+                        <li>
+                            <span class="icon"><i class="fa fa-link" aria-hidden="true"></i></span>
+                            <span class="text"> {{ portfolioData.website }}</span>
+                        </li>
+                        {% endif %}
+                        {% if portfolioData.linkedin %}
+                        <li>
+                            <span class="icon">
+                                <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+                            </span>
+                            <span class="text"> {{ portfolioData.linkedin }}</span>
+                        </li>
+                        {% endif %}
+                        <li>
+                            <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+                            <span class="text"> {{ portfolioData.address }}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="contactInfo education">
+                    <h3 class="title">Education</h3>
+                    <ul>
+                        {% for edu in portfolioData.education %}
+                        <li>
+                            <h5>{{ edu.start }} - {{ edu.end }}</h5>
+                            <h4>{{ edu.degree }}</h4>
+                            <h4>{{ edu.uni }}</h4>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="contactInfo language">
+                    <h3 class="title">Language</h3>
+                    <ul>
+                        {% for lan in portfolioData.languages %}
+                        <li>
+                            <span class="text">{{ lan.lanname }}</span>
+                            <span class="percent">
+                                <div style="width: {{ lan.lanper|default:0 }}%"></div>
+                            </span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="right-side">
+                <div class="about">
+                    <h3 class="title2">Profile</h3>
+                    <p>{{ portfolioData.briefIntro }}</p>
+                </div>
+                <div class="about">
+                    <h3 class="title2">Experience</h3>
+                    {% for exp in portfolioData.experience %}
+
+                    <div class="box">
+                        <div class="year_company">
+                            <h5>{{ exp.expStart }} -{{ exp.expEnd }}</h5>
+                            <!-- console.log("company:", exp.companyName); -->
+
+                            <h5>{{ exp.companyName }}</h5>
+                        </div>
+                        <div class="text">
+                            <!-- console.log("job",exp.jobRole)-->
+                            <h4>{{ exp.jobRole }}</h4>
+
+                            <p>{{ exp.jobDes }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="skills">
+                    <h3>Professional Skills</h3>
+                    <div class="skill-list">
+                        <ul>
+                            {% for skill in portfolioData.skills %}
+                            <li>
+                                <span>{{ skill.skillName }}</span>
+                                <span class="percent">
+                                    <div style="width: {{ skill.skillPer|default:0 }}%"></div>
+                                </span>
+
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="interest">
+                    <h3>Interest</h3>
+                    <ul>
+                        {% for interest in portfolioData.interests %}
+                        <li>
+                            <span class="icon">
+                                <i class="fa fa-gamepad" aria-hidden="true"></i>
+                            </span>
+                            <span class="name">{{ interest }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>

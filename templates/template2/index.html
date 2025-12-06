@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio Website</title>
+    <link rel="stylesheet" href="{% static 'css/template2.css' %}" />
+</head>
+
+<body>
+    <section class="banner">
+        <header>
+            <div class="image"><img src="{% static 'images/icon.jpg' %}" /></div>
+            <!-- Drishti <span>Jadhwani</span> -->
+            <a href="#" class="logo">{{ portfolioData.name }}</a>
+            <ul>
+                <li><a href="{% url 'dashboard' %}">Home</a></li>
+                <li><a href="{% url 'template_page' 'template2' 'about' %}">About</a></li>
+                <li><a href="{% url 'template_page' 'template2' 'contact' %}">Contact</a></li>
+            </ul>
+        </header>
+        <div class="content">
+            <h2>I am <span id="text"></span></h2>
+            <button class="chat">Let's Chat</button>
+            <!-- <button class="website">Visit me</button> -->
+        </div>
+        <div class="dayNight">
+            <ion-icon name="sunny"></ion-icon>
+            <ion-icon name="moon"></ion-icon>
+        </div>
+    </section>
+    <script>
+        let expertFields = {{ portfolioData.expert| safe }};
+        let whatsappNumber = "{{ portfolioData.contact }}"; // Get WhatsApp number
+        let linkedin = "{{ portfolioData.linkedin }}";
+        document.addEventListener("DOMContentLoaded", function () {
+            const chatButton = document.querySelector(".chat");
+
+            if (whatsappNumber) {
+                chatButton.addEventListener("click", function () {
+                    let whatsappLink = `https://wa.me/${whatsappNumber}`;
+                    window.open(whatsappLink, "_blank");
+                });
+            } else {
+                console.warn("WhatsApp number not provided in portfolioData");
+            }
+        });
+    </script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script src="{% static 'js/template2.js' %}"></script>
+</body>
+
+</html>

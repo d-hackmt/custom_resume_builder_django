@@ -1,0 +1,132 @@
+<!-- signup.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background-color: #f0f2f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        background-color: white;
+        padding: 2.5rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .header h1 {
+        color: #1a73e8;
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .header p {
+        color: #666;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #333;
+        font-weight: 500;
+      }
+
+      input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid #ddd;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: #1a73e8;
+      }
+
+      button {
+        width: 100%;
+        padding: 0.875rem;
+        background-color: #1a73e8;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #1557b0;
+      }
+
+      .footer {
+        text-align: center;
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #ddd;
+        color: #666;
+      }
+
+      .footer a {
+        color: #1a73e8;
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .footer a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Create Account</h1>
+        <p>Join us today! It only takes a minute.</p>
+      </div>
+      <form method="post" action="/admin/adminSignUp">
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="adminEmail" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="adminPassword" required />
+        </div>
+        <button type="submit">Sign Up</button>
+      </form>
+      <div class="footer">
+        Already have an account? <a href="/admin/adminSignIn">Sign In</a>
+      </div>
+    </div>
+  </body>
+</html>

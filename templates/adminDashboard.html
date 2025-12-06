@@ -1,0 +1,530 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard | Resume Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #1557b0;
+            --secondary: #34a853;
+            --danger: #ea4335;
+            --warning: #fbbc05;
+            --light: #f8f9fa;
+            --dark: #202124;
+            --gray: #5f6368;
+            --border: #dadce0;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            color: var(--dark);
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: white;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            height: 100vh;
+            z-index: 10;
+        }
+
+        .logo-container {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            padding: 1rem 0;
+        }
+
+        .nav-item {
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            align-items: center;
+            color: var(--gray);
+            text-decoration: none;
+            transition: all 0.3s;
+            background-color: #1a73e8;
+            color: white;
+            border-radius: 5%;
+        }
+
+        .nav-item.active {
+            background-color: rgba(26, 115, 232, 0.1);
+            color: var(--primary);
+            border-left: 3px solid var(--primary);
+        }
+
+        .nav-item:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-icon {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .admin-profile {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+        }
+
+        .admin-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .admin-info {
+            flex: 1;
+        }
+
+        .admin-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .admin-role {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+        }
+
+
+
+        .btn-icon {
+            margin-right: 8px;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .card-users .card-icon {
+            background-color: var(--primary);
+        }
+
+        .card-templates .card-icon {
+            background-color: var(--secondary);
+        }
+
+        .card-analytics .card-icon {
+            background-color: var(--warning);
+        }
+
+        .card-settings .card-icon {
+            background-color: var(--gray);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .card-subtitle {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Recent Activity Section */
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-icon {
+            margin-right: 8px;
+            color: var(--primary);
+        }
+
+        .recent-activity {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .activity-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .activity-table th,
+        .activity-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .activity-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: var(--gray);
+        }
+
+        .activity-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .activity-table tbody tr:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .status {
+            padding: 0.3rem 0.6rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .status-active {
+            background-color: rgba(52, 168, 83, 0.15);
+            color: var(--secondary);
+        }
+
+        .status-pending {
+            background-color: rgba(251, 188, 5, 0.15);
+            color: var(--warning);
+        }
+
+        .view-btn {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .view-btn:hover {
+            text-decoration: underline;
+        }
+
+        /* Template Grid Section */
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .template-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+
+        .template-details {
+            padding: 1rem;
+        }
+
+        .template-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .template-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        .badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+
+        .template-img img {
+            width: 100%;
+            height: 350px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            object-fit: contain;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+                overflow: hidden;
+            }
+
+            .logo-text,
+            .nav-text,
+            .admin-info {
+                display: none;
+            }
+
+            .logo {
+                justify-content: center;
+            }
+
+            .logo-icon {
+                margin-right: 0;
+            }
+
+            .nav-item {
+                justify-content: center;
+                padding: 0.8rem;
+            }
+
+            .nav-icon {
+                margin-right: 0;
+            }
+
+            .admin-profile {
+                justify-content: center;
+                padding: 1rem 0;
+            }
+
+            .admin-avatar {
+                margin-right: 0;
+            }
+
+            .main-content {
+                margin-left: 70px;
+            }
+
+        }
+
+        @media (max-width: 576px) {
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-actions a {
+                margin-top: 1rem;
+                color: white;
+                background-color: #1a73e8;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo-container">
+                <div class="logo">
+                    <span class="logo-icon">📄</span>
+                    <span class="logo-text">ResumeBuilder</span>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="nav-item active">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </div>
+            <div class="admin-profile">
+                <div class="admin-avatar">A</div>
+                <div class="admin-info">
+                    <div class="admin-name">Admin User</div>
+                    <div class="admin-role">Administrator</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h1 class="page-title">Admin Dashboard</h1>
+                <a href="{% url 'dashboard' %}" class="nav-item">Home</a>
+            </div>
+
+            <!-- Dashboard Cards -->
+            <div class="dashboard-cards">
+                <div class="card card-templates">
+                    <div class="card-icon">📝</div>
+                    <h3 class="card-title">Resume Templates</h3>
+                    <div class="card-value">3</div>
+                    <p class="card-subtitle">Available for users</p>
+                </div>
+                <div class="card card-settings">
+                    <div class="card-icon">🔍</div>
+                    <h3 class="card-title">Form Submissions</h3>
+
+                    <div class="card-value">
+                        {{ totalCount }}
+                    </div>
+                    <div class="card-value">
+                    </div>
+                </div>
+                <div class="card card-templates">
+                    <div class="card-icon">📝</div>
+                    <h3 class="card-title">Users</h3>
+                    <div class="card-value">
+                        {{ userCount }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Template Management Section -->
+            <div class="section-title" style="margin-top: 2rem">
+                <span class="section-icon">📝</span>
+                Resume Templates
+            </div>
+            <div class="template-grid">
+                <div class="template-card">
+                    <div class="template-img">
+                        <img src="{% static 'images/resumes (1).png' %}" />
+                        Professional Template
+                    </div>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-img">
+                        <img src="{% static 'images/resumes (1).png' %}" />Modern Template
+                    </div>
+                    <div class="template-details">
+                        <div class="template-name">Modern</div>
+                    </div>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-img">
+                        <img src="{% static 'images/template2.png' %}" />
+                        Creative Template
+                    </div>
+
+                    <div class="template-details">
+                        <div class="template-name">Creative</div>
+                        <div class="template-meta">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

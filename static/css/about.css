@@ -1,0 +1,113 @@
+body {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+  color: #333;
+  line-height: 1.8;
+}
+
+.container {
+  width: 80%;
+  max-width: 900px;
+  margin: 50px auto;
+  background: white;
+  padding: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 28px;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+h2 span {
+  font-size: 18px;
+  color: #777;
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+p {
+  text-align: justify;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 22px;
+  color: #2c3e50;
+  border-bottom: 2px solid #2c3e50;
+  padding-bottom: 5px;
+  margin-top: 30px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  margin-bottom: 8px;
+}
+
+ul li i {
+  color: #2c3e50;
+  margin-right: 10px;
+}
+
+.contact-info {
+  font-size: 16px;
+  background: #ecf0f1;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.contact-info span {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.education,
+.experience,
+.skills,
+.interests {
+  margin-top: 20px;
+}
+
+.skill-list div {
+  height: 8px;
+  background: #2c3e50;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.interests ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.interests li {
+  background: #ecf0f1;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.interests .icon {
+  margin-right: 5px;
+}
+
+.home-button button:hover {
+  background-color: #005f8d;
+}
