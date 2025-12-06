@@ -20,7 +20,7 @@ A Django-based web application that helps users create professional resumes usin
 
 1.  **Clone the repository:**
     ```bash
-    git clone <repository_url>
+    git clone https://github.com/d-hackmt/custom_resume_builder_django.git
     cd Custom-Resume-Builder
     ```
 
